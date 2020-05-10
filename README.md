@@ -1,0 +1,5 @@
+# Static site start file
+
+
+
+
