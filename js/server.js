@@ -4,6 +4,7 @@ let express = require('express');
 let mongodb = require('mongodb');
 let app = express();
 let db;
+
 let sanitizeHTML = require('sanitize-html');
 app.use(express.static('js'));
 let connectionString =
@@ -13,6 +14,7 @@ mongodb.connect(
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err, client) => {
     db = client.db();
+
     app.listen(3000);
   }
 );
@@ -22,7 +24,7 @@ app.use(passwordProtected);
 
 function passwordProtected(req, res, next) {
   res.set('WWW-Authenticate', 'Basic realm= "simple todo app"');
-  console.log(req.headers.authorization);
+  // console.log(req.headers.authorization);
   if (req.headers.authorization == 'Basic dG9kbzptb25nbw==') {
     next();
   } else {
@@ -46,6 +48,7 @@ app.get('/', function (req, res) {
 <body>
   <div class="container">
     <h1 class="display-5 text-center py-1">Create, Read, Update, Delete</h1>
+    <h3 class="display-5 text-center py-1">This is a MongoDB app using Express and MongoDB Atlas</h3>
     
     <div class="jumbotron p-3 shadow-sm">
       <form id="create-form" action="/create-item" method = "POST">
